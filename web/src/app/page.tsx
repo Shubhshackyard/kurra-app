@@ -19,7 +19,7 @@ import {
   CustomCutResponse,
 } from "@/types/api";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+const API_BASE = "";
 
 const DEFAULT_COLORS: ColorSwatch[] = [
   { name_hi: "कत्थई", name_en: "Maroon", hex: "#78350f" },
