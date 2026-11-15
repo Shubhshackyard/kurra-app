@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: kurra-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    region: singapore
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: CREWAI_TELEMETRY_OPT_OUT
+        value: "true"
+      - key: OTEL_SDK_DISABLED
+        value: "true"
+    disk:
+      name: cadastre-data
+      mountPath: /app/data
+      sizeGB: 1

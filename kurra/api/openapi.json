@@ -1,0 +1,866 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SDM Kurra Partition API",
+    "description": "Section 116 / Rule 109(5) UP Revenue Code Cadastral Partition Engine",
+    "version": "2.0.0"
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/store/status": {
+      "get": {
+        "summary": "Store Status",
+        "description": "Retrieve local SQLite database sync and offline status.",
+        "operationId": "store_status_api_store_status_get",
+        "parameters": [
+          {
+            "name": "district",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "165",
+              "title": "District"
+            }
+          },
+          {
+            "name": "tehsil",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "00854",
+              "title": "Tehsil"
+            }
+          },
+          {
+            "name": "village",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "151769",
+              "title": "Village"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/plots/{district}/{tehsil}/{village}/{plot_no}": {
+      "get": {
+        "summary": "Get Plot Data",
+        "description": "Fetch complete plot details: local store first, live Bhunaksha fallback.",
+        "operationId": "get_plot_data_api_plots__district___tehsil___village___plot_no__get",
+        "parameters": [
+          {
+            "name": "district",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "District"
+            }
+          },
+          {
+            "name": "tehsil",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Tehsil"
+            }
+          },
+          {
+            "name": "village",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Village"
+            }
+          },
+          {
+            "name": "plot_no",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plot No"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/plans/propose": {
+      "post": {
+        "summary": "Propose Plans",
+        "description": "Generate multi-objective statutory partition plans under Rule 109(5).",
+        "operationId": "propose_plans_api_plans_propose_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProposePlanRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProposePlanResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/plans/overlap": {
+      "post": {
+        "summary": "Compute Overlap",
+        "description": "Compute percentage overlap between any two scheme partitions.",
+        "operationId": "compute_overlap_api_plans_overlap_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OverlapRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OverlapResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/draft/report": {
+      "post": {
+        "summary": "Draft Legal Report",
+        "description": "Draft official Lekhpal Kurra Report and Preliminary Decree in Hindi.",
+        "operationId": "draft_legal_report_api_draft_report_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LegalDraftRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LegalDraftResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuditScorecard": {
+        "properties": {
+          "tier": {
+            "type": "integer",
+            "title": "Tier"
+          },
+          "tier_name": {
+            "type": "string",
+            "title": "Tier Name"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "clause_ref": {
+            "type": "string",
+            "title": "Clause Ref"
+          },
+          "legal_basis": {
+            "type": "string",
+            "title": "Legal Basis"
+          },
+          "name_en": {
+            "type": "string",
+            "title": "Name En"
+          },
+          "name_hi": {
+            "type": "string",
+            "title": "Name Hi"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "metric": {
+            "type": "string",
+            "title": "Metric"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "statutory_citation": {
+            "type": "string",
+            "title": "Statutory Citation"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tier",
+          "tier_name",
+          "code",
+          "clause_ref",
+          "legal_basis",
+          "name_en",
+          "name_hi",
+          "status",
+          "metric",
+          "detail",
+          "statutory_citation"
+        ],
+        "title": "AuditScorecard"
+      },
+      "CaseMetadata": {
+        "properties": {
+          "case_no": {
+            "type": "string",
+            "title": "Case No",
+            "description": "Revenue Court Case Number",
+            "default": "116/2026"
+          },
+          "court_name": {
+            "type": "string",
+            "title": "Court Name",
+            "description": "Presiding SDM Court",
+            "default": "न्यायालय उपजिलाधिकारी"
+          },
+          "district_code": {
+            "type": "string",
+            "title": "District Code",
+            "description": "LGD District Code",
+            "default": "165"
+          },
+          "district_name": {
+            "type": "string",
+            "title": "District Name",
+            "description": "District Name",
+            "default": "जालौन"
+          },
+          "tehsil_code": {
+            "type": "string",
+            "title": "Tehsil Code",
+            "description": "LGD Tehsil Code",
+            "default": "00854"
+          },
+          "tehsil_name": {
+            "type": "string",
+            "title": "Tehsil Name",
+            "description": "Tehsil Name",
+            "default": "उरई"
+          },
+          "village_code": {
+            "type": "string",
+            "title": "Village Code",
+            "description": "LGD Village Code",
+            "default": "151769"
+          },
+          "village_name": {
+            "type": "string",
+            "title": "Village Name",
+            "description": "Village Name",
+            "default": "इखलाशपुरा च0क्षे0"
+          },
+          "plot_no": {
+            "type": "string",
+            "title": "Plot No",
+            "description": "Khasra / Plot Number",
+            "default": "57"
+          },
+          "plaintiff": {
+            "type": "string",
+            "title": "Plaintiff",
+            "description": "Plaintiff Name",
+            "default": "वादी"
+          },
+          "defendant": {
+            "type": "string",
+            "title": "Defendant",
+            "description": "Defendant Name",
+            "default": "प्रतिवादी"
+          }
+        },
+        "type": "object",
+        "title": "CaseMetadata"
+      },
+      "CoSharerInput": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Unique party ID"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Co-sharer name in Hindi/English"
+          },
+          "share": {
+            "type": "string",
+            "title": "Share",
+            "description": "Decreed fraction, percentage, or float (e.g. '1/2', '25%', '0.33')"
+          },
+          "color_hex": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Color Hex",
+            "description": "Assigned swatch color hex"
+          },
+          "color_name_hi": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Color Name Hi",
+            "description": "Official Hindi color name"
+          },
+          "possession_wkt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Possession Wkt",
+            "description": "Existing possession polygon WKT if claimed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "share"
+        ],
+        "title": "CoSharerInput"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "LegalDraftRequest": {
+        "properties": {
+          "case_info": {
+            "$ref": "#/components/schemas/CaseMetadata"
+          },
+          "scheme": {
+            "$ref": "#/components/schemas/PartitionScheme"
+          }
+        },
+        "type": "object",
+        "required": [
+          "case_info",
+          "scheme"
+        ],
+        "title": "LegalDraftRequest"
+      },
+      "LegalDraftResponse": {
+        "properties": {
+          "lekhpal_report_hi": {
+            "type": "string",
+            "title": "Lekhpal Report Hi"
+          },
+          "preliminary_decree_hi": {
+            "type": "string",
+            "title": "Preliminary Decree Hi"
+          }
+        },
+        "type": "object",
+        "required": [
+          "lekhpal_report_hi",
+          "preliminary_decree_hi"
+        ],
+        "title": "LegalDraftResponse"
+      },
+      "OverlapRequest": {
+        "properties": {
+          "scheme_a_lots": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Scheme A Lots"
+          },
+          "scheme_b_lots": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Scheme B Lots"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scheme_a_lots",
+          "scheme_b_lots"
+        ],
+        "title": "OverlapRequest"
+      },
+      "OverlapResponse": {
+        "properties": {
+          "mean_overlap_pct": {
+            "type": "number",
+            "title": "Mean Overlap Pct"
+          },
+          "party_overlaps": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Party Overlaps"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mean_overlap_pct",
+          "party_overlaps",
+          "explanation"
+        ],
+        "title": "OverlapResponse"
+      },
+      "PartitionScheme": {
+        "properties": {
+          "scheme_id": {
+            "type": "string",
+            "title": "Scheme Id"
+          },
+          "scheme_name_hi": {
+            "type": "string",
+            "title": "Scheme Name Hi"
+          },
+          "scheme_name_en": {
+            "type": "string",
+            "title": "Scheme Name En"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "lots": {
+            "items": {
+              "$ref": "#/components/schemas/ProposedLot"
+            },
+            "type": "array",
+            "title": "Lots"
+          },
+          "audit_results": {
+            "items": {
+              "$ref": "#/components/schemas/AuditScorecard"
+            },
+            "type": "array",
+            "title": "Audit Results"
+          },
+          "all_passed": {
+            "type": "boolean",
+            "title": "All Passed"
+          },
+          "failure_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Failure Reason"
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Provenance"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scheme_id",
+          "scheme_name_hi",
+          "scheme_name_en",
+          "description",
+          "lots",
+          "audit_results",
+          "all_passed",
+          "provenance"
+        ],
+        "title": "PartitionScheme"
+      },
+      "ProposePlanRequest": {
+        "properties": {
+          "district": {
+            "type": "string",
+            "title": "District",
+            "default": "165"
+          },
+          "tehsil": {
+            "type": "string",
+            "title": "Tehsil",
+            "default": "00854"
+          },
+          "village": {
+            "type": "string",
+            "title": "Village",
+            "default": "151769"
+          },
+          "plot_no": {
+            "type": "string",
+            "title": "Plot No",
+            "default": "57"
+          },
+          "parties": {
+            "items": {
+              "$ref": "#/components/schemas/CoSharerInput"
+            },
+            "type": "array",
+            "title": "Parties"
+          },
+          "strategies": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Strategies",
+            "default": [
+              "compact",
+              "frontage",
+              "road_parallel"
+            ]
+          },
+          "seed": {
+            "type": "integer",
+            "title": "Seed",
+            "default": 7
+          },
+          "shared_path_width": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shared Path Width"
+          },
+          "road_geometry_wkt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Road Geometry Wkt"
+          }
+        },
+        "type": "object",
+        "required": [
+          "parties"
+        ],
+        "title": "ProposePlanRequest"
+      },
+      "ProposePlanResponse": {
+        "properties": {
+          "plot_no": {
+            "type": "string",
+            "title": "Plot No"
+          },
+          "schemes": {
+            "items": {
+              "$ref": "#/components/schemas/PartitionScheme"
+            },
+            "type": "array",
+            "title": "Schemes"
+          },
+          "shares_valid": {
+            "type": "boolean",
+            "title": "Shares Valid"
+          },
+          "shares_message": {
+            "type": "string",
+            "title": "Shares Message"
+          },
+          "possession_overlap_matrix": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "type": "number"
+              },
+              "type": "object"
+            },
+            "type": "object",
+            "title": "Possession Overlap Matrix"
+          }
+        },
+        "type": "object",
+        "required": [
+          "plot_no",
+          "schemes",
+          "shares_valid",
+          "shares_message"
+        ],
+        "title": "ProposePlanResponse"
+      },
+      "ProposedLot": {
+        "properties": {
+          "party_id": {
+            "type": "string",
+            "title": "Party Id"
+          },
+          "party_name": {
+            "type": "string",
+            "title": "Party Name"
+          },
+          "share_nominal": {
+            "type": "number",
+            "title": "Share Nominal"
+          },
+          "share_str": {
+            "type": "string",
+            "title": "Share Str"
+          },
+          "area_sqm": {
+            "type": "number",
+            "title": "Area Sqm"
+          },
+          "area_ha": {
+            "type": "number",
+            "title": "Area Ha"
+          },
+          "color_hex": {
+            "type": "string",
+            "title": "Color Hex"
+          },
+          "color_hi": {
+            "type": "string",
+            "title": "Color Hi"
+          },
+          "geojson": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Geojson"
+          },
+          "wkt": {
+            "type": "string",
+            "title": "Wkt"
+          },
+          "polsby_popper": {
+            "type": "number",
+            "title": "Polsby Popper"
+          },
+          "aspect_ratio": {
+            "type": "number",
+            "title": "Aspect Ratio"
+          },
+          "road_frontage_m": {
+            "type": "number",
+            "title": "Road Frontage M"
+          },
+          "is_connected": {
+            "type": "boolean",
+            "title": "Is Connected"
+          }
+        },
+        "type": "object",
+        "required": [
+          "party_id",
+          "party_name",
+          "share_nominal",
+          "share_str",
+          "area_sqm",
+          "area_ha",
+          "color_hex",
+          "color_hi",
+          "geojson",
+          "wkt",
+          "polsby_popper",
+          "aspect_ratio",
+          "road_frontage_m",
+          "is_connected"
+        ],
+        "title": "ProposedLot"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

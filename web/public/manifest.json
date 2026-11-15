@@ -1,0 +1,16 @@
+{
+  "name": "एसडीएम कुर्रा डैशबोर्ड — SDM Kurra Dashboard",
+  "short_name": "Kurra SDM",
+  "description": "उत्तर प्रदेश राजस्व संहिता 2006 धारा 116 व नियमावली नियम 109(5) हेतु स्थानीय भू-सर्वेक्षण व कुर्रा विभाजन प्रणाली",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#090d16",
+  "icons": [
+    {
+      "src": "/window.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}

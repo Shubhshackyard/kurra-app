@@ -1,0 +1,27 @@
+{
+  "_note": "Verified UP Bhunaksha server endpoints at https://upbhunaksha.gov.in/bhunakshaserver",
+  "base": "https://upbhunaksha.gov.in/bhunakshaserver",
+  "extent": {
+    "method": "POST",
+    "path": "/MapInfo/getVVVVExtentGeoref",
+    "data": {"gisLevels": "{gislevels}"}
+  },
+  "plot_bbox": {
+    "method": "POST",
+    "path": "/MapInfo/getPlotByPlotNo",
+    "data": {"giscode": "{giscode}", "plotno": "{plot}"}
+  },
+  "plot_info": {
+    "method": "POST",
+    "path": "/MapInfo/getPlotInfo",
+    "json": {"gisCode": "{giscode}", "plotNo": "{plot}"}
+  },
+  "plot_report": {
+    "method": "GET",
+    "path": "/api/plots?gisCode={giscode}&plotNo={plot}"
+  },
+  "location_info": {
+    "method": "POST",
+    "path": "/masterdata/getAttributionInfo?gisCode={giscode}"
+  }
+}

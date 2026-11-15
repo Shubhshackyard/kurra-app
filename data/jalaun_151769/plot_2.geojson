@@ -1,0 +1,67 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::32644"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "district_code": "165",
+        "district_name": "जालौन",
+        "tehsil_code": "00854",
+        "tehsil_name": "उरई",
+        "village_code": "151769",
+        "village_name": "इखलाशपुरा च0क्षे0",
+        "plot_no": "2",
+        "khata_no": "00054",
+        "area_ha": 0.275,
+        "area_sqm": 2750.0,
+        "co_owners": [
+          {
+            "name": "बाबूराम (पुत्र हरीराम)",
+            "share_sqm": 2638.0,
+            "share_pct": 95.927
+          },
+          {
+            "name": "श्रीमती सूरज कली (पत्नी देवी सिंह)",
+            "share_sqm": 112.0,
+            "share_pct": 4.073,
+            "deed": "218 dt 19/01/2009"
+          }
+        ],
+        "crs": "EPSG:32644"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              346773.36951828434,
+              2876340.847138098
+            ],
+            [
+              346773.36951828434,
+              2876466.153278302
+            ],
+            [
+              346751.4232673223,
+              2876466.153278302
+            ],
+            [
+              346751.4232673223,
+              2876340.847138098
+            ],
+            [
+              346773.36951828434,
+              2876340.847138098
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

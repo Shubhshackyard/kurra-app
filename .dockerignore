@@ -1,0 +1,24 @@
+# Git & System
+.git
+.gitignore
+.DS_Store
+*.pyc
+__pycache__
+
+# Virtual Environments
+.venv/
+env/
+venv/
+
+# Frontend Web Build
+web/
+node_modules/
+.next/
+
+# Artifacts & Slides
+*.pptx
+*.log
+presentation_assets/
+.gemini/
+.agents/
+.claude/

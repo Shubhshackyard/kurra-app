@@ -1,0 +1,81 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environment variables & secrets
+.env
+.env.local
+*.pem
+*.key
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Editor & OS files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local App Runtime & Cache Outputs
+data/cache/
+data/workflow_output/
+data/skills/
+*.bak
+kurra_draft.md
+kurra_lots.geojson
+kurra_table.csv
+
+# Agent and skill libraries
+.agents/
+.claude/
+.gemini/
+agent/
+skills-lock.json
+
+# Presentation and walkthrough assets
+*.pptx
+presentation_assets/
+capture_screens.py
+generate_presentation.py
+
+# Node & Next.js
+web/node_modules/
+web/.next/
+web/out/
+web/.env.local
+data/**/artifacts/

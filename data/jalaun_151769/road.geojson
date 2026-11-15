@@ -1,0 +1,32 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::32644"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "road_1",
+        "name": "चक मार्ग (Field Road)",
+        "width_m": 4.0
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            346711.4232673223,
+            2876340.747138098
+          ],
+          [
+            346833.36951828434,
+            2876340.747138098
+          ]
+        ]
+      }
+    }
+  ]
+}
