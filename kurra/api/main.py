@@ -27,7 +27,6 @@ from ..geometry import (
 )
 from ..ingest.store import CadastreStore, to_wgs84_geojson
 from ..legal_drafter import RevenueLegalDrafter
-from ..crew_drafter import KurraLegalCrew
 from ..optimizer import Party, generate_plan
 from ..report_parser import PlotReportData
 from ..rules import evaluate, explain_failure, rank_key
@@ -64,7 +63,7 @@ app.add_middleware(
 
 client = BhunakshaClient()
 drafter = RevenueLegalDrafter()
-legal_crew = KurraLegalCrew()
+
 
 
 @app.get("/api/health")
@@ -496,6 +495,8 @@ def draft_legal_report(req: LegalDraftRequest):
         "shared_pathway": req.scheme.provenance.get("shared_pathway", {})
     }
 
+    from ..crew_drafter import KurraLegalCrew
+    legal_crew = KurraLegalCrew()
     docs = legal_crew.draft_documents(
         case_meta=case_dict,
         scheme_data={
